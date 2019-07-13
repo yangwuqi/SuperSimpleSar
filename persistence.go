@@ -33,8 +33,8 @@ func persisting(persistOK bool, persistDura *int, dataNewest *dataNew, closePers
 }
 
 func save(path string, dataNewest dataNew) {
-	dataNewest.mu.RLock()
-	defer dataNewest.mu.RUnlock()
+	dataNewest.mu.Lock()
+	defer dataNewest.mu.Unlock()
 
 	var newPersist dataPersist
 	newPersist.Time = time.Now().Format("2006/1/2 15:04:05")
