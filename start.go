@@ -23,8 +23,8 @@ func main() {
 	var persistDura int
 	var newConf Conf
 
-	mapInitial:=make(map[string]string)
-	dataNewest.data=mapInitial
+	mapInitial := make(map[string]string)
+	dataNewest.data = mapInitial
 	closeGetting := make(chan bool, 1)
 	closeDisplaying := make(chan bool, 1)
 	closePersisting := make(chan bool, 1)
