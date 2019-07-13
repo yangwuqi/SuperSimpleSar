@@ -24,7 +24,9 @@ func main() {
 	var newConf Conf
 
 	mapInitial := make(map[string]string)
+	dataNewest.mu.Lock()
 	dataNewest.data = mapInitial
+	dataNewest.mu.Unlock()
 	closeGetting := make(chan bool, 1)
 	closeDisplaying := make(chan bool, 1)
 	closePersisting := make(chan bool, 1)
