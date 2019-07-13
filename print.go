@@ -48,8 +48,8 @@ func firstPrintSingle(metrics []string, metricMeta string, url string) {
 }
 
 func simplePrint(metricsDisplaying []string, dataNewest *dataNew, url string, metricLengths []int) {
-	dataNewest.mu.RLock()
-	defer dataNewest.mu.RUnlock()
+	dataNewest.mu.Lock()
+	defer dataNewest.mu.Unlock()
 
 	fmt.Printf("TIME %v   ", time.Now().Format("2006/1/2 15:04:05"))
 	for i := 0; i < len(metricsDisplaying); i++ {
