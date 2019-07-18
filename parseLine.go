@@ -36,9 +36,8 @@ func (d *Data) nextLine() (result1, result2 string) { //get one line and it is p
 
 	for i := d.lineStart; i < len(d.data); i++ {
 		if (d.data)[i] == '\n' || (d.data)[i] == '\r' || i == len(d.data)-1 {
-			//fmt.Println("here is a line !")
 			d.lineEnd = i
-			result1, result2 = ParseLine(d.lineStart, d.lineEnd, d.data)
+			result1, result2 = parseLine(d.lineStart, d.lineEnd, d.data)
 			d.lineStart = i + 1
 			break
 		}
@@ -47,10 +46,8 @@ func (d *Data) nextLine() (result1, result2 string) { //get one line and it is p
 	return result1, result2
 }
 
-func ParseLine(lineStart, lineEnd int, body []byte) (line1, line2 string) {
+func parseLine(lineStart, lineEnd int, body []byte) (line1, line2 string) {
 	line := string(body[lineStart:lineEnd])
-
-	//fmt.Println(string(line))
 
 	if len(line) < 6 {
 		fmt.Println("too short! the len of line is only ", len(line))
