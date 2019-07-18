@@ -25,7 +25,7 @@ func controlling(dataNewest *dataNew, closeGetting chan bool, closeDisplaying ch
 			case "-cp":
 				closePersisting <- true
 			case "-log":
-				createLogTxt("dataLog.txt")
+				go createLogTxt("dataLog.txt")
 			}
 			startIndex += length
 			if startIndex >= len(inputLine) {
