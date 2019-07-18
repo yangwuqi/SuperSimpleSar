@@ -37,7 +37,7 @@ func print(metricsDisplaying []string, url string, displayingDura *int, metricsM
 
 func firstPrintSingle(metrics []string, metricMeta string, url string) {
 	fmt.Println()
-	fmt.Printf("*********************************************************%v - %v*************************************************************\n", url, metricMeta)
+	fmt.Printf("*********************************************************%v - %v****************************************************************\n", url, metricMeta)
 	fmt.Println()
 	//fmt.Printf("TIME %v   ", time.Now().Format("2006/1/2 15:04:05"))
 	fmt.Printf("TIME                      ")
@@ -48,8 +48,8 @@ func firstPrintSingle(metrics []string, metricMeta string, url string) {
 }
 
 func simplePrint(metricsDisplaying []string, dataNewest *dataNew, url string, metricLengths []int) {
-	dataNewest.mu.Lock()
-	defer dataNewest.mu.Unlock()
+	dataNewest.mu.RLock()
+	defer dataNewest.mu.RUnlock()
 
 	fmt.Printf("TIME %v   ", time.Now().Format("2006/1/2 15:04:05"))
 	for i := 0; i < len(metricsDisplaying); i++ {

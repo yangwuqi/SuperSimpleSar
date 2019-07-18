@@ -19,11 +19,13 @@ func controlling(dataNewest *dataNew, closeGetting chan bool, closeDisplaying ch
 				fmt.Println("shutdown all!")
 				return
 			case "-save":
-				save("data", *dataNewest)
+				save("data", dataNewest)
 			case "-s":
 				closeDisplaying <- true
 			case "-cp":
 				closePersisting <- true
+			case "-log":
+				createLogTxt("dataLog.txt")
 			}
 			startIndex += length
 			if startIndex >= len(inputLine) {

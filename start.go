@@ -6,8 +6,8 @@ import (
 	"sync"
 )
 
-type dataNew struct{
-	mu sync.RWMutex
+type dataNew struct {
+	mu   sync.RWMutex
 	data map[string]string
 }
 

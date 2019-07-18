@@ -1,10 +1,13 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"encoding/gob"
 	"fmt"
 	"io/ioutil"
+	"log"
+	"os"
 	"time"
 )
 
@@ -22,7 +25,7 @@ func persisting(persistOK bool, persistDura *int, dataNewest *dataNew, closePers
 	for {
 		select {
 		case <-time.After(time.Duration((*persistDura)*1000) * time.Millisecond):
-			save("data", *dataNewest)
+			save("data", dataNewest)
 
 		case <-closePersisting:
 			fmt.Println("the persisting process is shut down")
@@ -32,9 +35,10 @@ func persisting(persistOK bool, persistDura *int, dataNewest *dataNew, closePers
 
 }
 
+/*
 func save(path string, dataNewest dataNew) {
-	dataNewest.mu.Lock()
-	defer dataNewest.mu.Unlock()
+	dataNewest.mu.RLock()
+	defer dataNewest.mu.RUnlock()
 
 	var newPersist dataPersist
 	newPersist.Time = time.Now().Format("2006/1/2 15:04:05")
@@ -73,4 +77,79 @@ func seesee() {
 	for i := 0; i < len(xx); i++ {
 		fmt.Println(xx[i].Time, ":   ", xx[i].DataSaved)
 	}
+}
+
+*/
+
+func save(path string, dataNewest *dataNew) {
+	dataNewest.mu.RLock()
+	defer dataNewest.mu.RUnlock()
+
+	var newPersist dataPersist
+	newPersist.Time = time.Now().Format("2006/1/2 15:04:05")
+	newPersist.DataSaved = dataNewest.data
+	buffer := new(bytes.Buffer)
+	encoder := gob.NewEncoder(buffer)
+	_ = encoder.Encode(newPersist)
+	file, err1 := os.OpenFile(path, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err1 != nil {
+		log.Fatalf("failed creating file: %s", err1)
+	}
+
+	toBeWritten := append(buffer.Bytes(), '!', 'p', 'g', 'n', 'b')
+	dataWriter := bufio.NewWriter(file)
+	_, err2 := dataWriter.Write(toBeWritten)
+	if err2 != nil {
+		fmt.Printf("error when writing to the file!\n")
+		panic(err2)
+	}
+	err3 := dataWriter.Flush()
+	if err3 != nil {
+		fmt.Printf("error when Flush() the file!\n")
+		panic(err3)
+	}
+	err4 := file.Close()
+	if err4 != nil {
+		fmt.Printf("error when Close() the file!\n")
+		panic(err4)
+	}
+}
+
+func load(path string) ([]dataPersist, error) {
+	var result []dataPersist
+	flag := 0
+	file, _ := os.Open(path)
+	fileBytes, _ := ioutil.ReadAll(file)
+	if len(fileBytes) < 5 {
+		fmt.Println("wrong! no valid data")
+		return []dataPersist{}, nil
+	}
+	start := 0
+
+	for i := 0; i < len(fileBytes)-4; i++ {
+		if fileBytes[i] == '!' && fileBytes[i+1] == 'p' && fileBytes[i+2] == 'g' && fileBytes[i+3] == 'n' && fileBytes[i+4] == 'b' {
+			var resultLine dataPersist
+			var resultLineBytes []byte
+			resultLineBytes = fileBytes[start:i]
+			buffer := bytes.NewBuffer(resultLineBytes)
+			dec := gob.NewDecoder(buffer)
+			err1 := dec.Decode(&resultLine)
+			if err1 != nil {
+				fmt.Printf("error when Decoding!\n")
+				return result, err1
+			}
+			//fmt.Println("resultLine: ",resultLine)
+			result = append(result, resultLine)
+			flag++
+			start = i + 5
+			i = i + 4
+		}
+	}
+
+	err2 := file.Close()
+	if err2 != nil {
+		fmt.Printf("error when Close()!\n")
+		return result, err2
+	}
+	return result, nil
 }

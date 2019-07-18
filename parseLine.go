@@ -13,14 +13,17 @@ type Data struct {
 }
 
 func dataToMap(bodyData []byte, dataNewest *dataNew) {
+	dataNewest.mu.Lock()
+
 	var dataTemp Data
 	dataTemp.data = bodyData
 	dataTemp.handleMap(dataNewest)
+
+	dataNewest.mu.Unlock()
 }
 
 func (d *Data) handleMap(dataNewest *dataNew) {
-	dataNewest.mu.Lock()
-	defer dataNewest.mu.Unlock()
+
 	for d.lineEnd < len(d.data) && d.lineStart < len(d.data) {
 		writeLine1, writeLine2 := d.nextLine()
 		if writeLine1 != "" && writeLine1 != "#2" && len(writeLine1) > 0 && len(writeLine2) > 0 {
