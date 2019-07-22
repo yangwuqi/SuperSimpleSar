@@ -21,7 +21,7 @@ func print(metricsDisplaying []string, url string, displayingDura *int, metricsM
 		metricLengths = append(metricLengths, length)
 	}
 	firstPrintSingle(metricsDisplaying, metricsMeta, url)
-    var printed int
+	var printed int
 	for {
 		select {
 		case <-time.After(time.Duration((*displayingDura)*1000) * time.Millisecond):
@@ -29,9 +29,9 @@ func print(metricsDisplaying []string, url string, displayingDura *int, metricsM
 			fmt.Println()
 
 			printed++
-			if printed>15{
+			if printed > 15 {
 				firstPrintSingle(metricsDisplaying, metricsMeta, url)
-				printed=0
+				printed = 0
 			}
 
 		case <-closeDisplaying:

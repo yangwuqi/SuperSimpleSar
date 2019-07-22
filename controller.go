@@ -26,8 +26,8 @@ func controlling(dataNewest *dataNew, closeGetting chan bool, closeDisplaying ch
 				closePersisting <- true
 			case "-log":
 				createLogTxt("dataLog.txt")
-			case "-logC"://create logTxt for the chosen metrics
-				createLogTxtChosen("dataLogChosen.txt",metricsMeta, metricsDisplaying, urlGet)
+			case "-logC": //create logTxt for the chosen metrics
+				createLogTxtChosen("dataLogChosen.txt", metricsMeta, metricsDisplaying, urlGet)
 			}
 			startIndex += length
 			if startIndex >= len(inputLine) {
