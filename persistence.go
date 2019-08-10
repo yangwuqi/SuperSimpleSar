@@ -153,11 +153,20 @@ func loadAll()[]dataPersist{
 		//fmt.Println()//
 		//fmt.Println(metrics)//
 		if err1 != nil {
-			fmt.Printf("error when Decoding!\n")
-			panic(err1)
+			//fmt.Printf("error when Decoding!\n")
+			//fmt.Println(err1)
+			break
+			//panic(err1)
 		}
 		result=append(result, dataPersist{index, string(data.Key), metrics})
 	}
+	for _,v1:=range result{
+		fmt.Println("\n",v1.Index," ",v1.Time)
+		for k2,v2:=range v1.DataSaved {
+			fmt.Printf("key: %v, value: %v\n", k2,v2)
+		}
+	}
+
 	return result
 }
 

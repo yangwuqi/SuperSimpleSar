@@ -16,6 +16,7 @@ func controlling(dataNewest *dataNew, closeGetting chan bool, closeDisplaying ch
 		for word != "" {
 			switch word {
 			case "-q":
+				_=defaultBoltDB.Close()
 				fmt.Println("shutdown all!")
 				return
 			//case "-save":

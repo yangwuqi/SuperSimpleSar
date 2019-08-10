@@ -102,7 +102,7 @@ func getDbBucketAllData2(db *bolt.DB, bucketName string)(error,[]BucketKeyValue)
 	err := db.View(func(tx *bolt.Tx)error{
 		b := tx.Bucket([]byte(bucketName))
 		c := b.Cursor()
-		for k, v := c.First(); k!=nil; k,v = c.Next(){
+		for k, v := c.First(); k!=nil&&v!=nil; k,v = c.Next(){
 			result=append(result, BucketKeyValue{string(k), v})
 		}
 		return nil
