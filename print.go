@@ -21,18 +21,12 @@ func print(metricsDisplaying []string, url string, displayingDura *int, metricsM
 		metricLengths = append(metricLengths, length)
 	}
 	firstPrintSingle(metricsDisplaying, metricsMeta, url)
-	var printed int
+
 	for {
 		select {
 		case <-time.After(time.Duration((*displayingDura)*1000) * time.Millisecond):
 			simplePrint(metricsDisplaying, dataNewest, url, metricLengths)
 			fmt.Println()
-
-			printed++
-			if printed > 15 {
-				firstPrintSingle(metricsDisplaying, metricsMeta, url)
-				printed = 0
-			}
 
 		case <-closeDisplaying:
 			fmt.Println("shutdown the dynamic output...")

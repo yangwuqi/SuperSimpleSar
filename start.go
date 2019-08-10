@@ -3,7 +3,13 @@ package main
 import (
 	"fmt"
 	"github.com/BurntSushi/toml"
+	"github.com/boltdb/bolt"
 	"sync"
+)
+
+var(
+	defaultBoltDB *bolt.DB
+	defaultBucket string
 )
 
 type dataNew struct {
@@ -31,6 +37,17 @@ func main() {
 	closeDisplaying := make(chan bool, 1)
 	closePersisting := make(chan bool, 1)
 
+	db,err:=openBoltDB("defaultBoltDB")
+	if err!=nil{
+		fmt.Println("cannot open the default BoltDB!")
+	}
+	defaultBoltDB = db
+	err1 := createDbBucket(defaultBoltDB, "defaultBucket")
+	if err1!=nil{
+		fmt.Println("cannot open the default BoltDB Bucket!")
+	}
+	defaultBucket = "defaultBucket"
+
 	if _, err := toml.DecodeFile("configuration.toml", &newConf); err != nil {
 		fmt.Println("configurations loading error! ")
 		fmt.Println(err)
@@ -53,6 +70,6 @@ func main() {
 		go persisting(persistOk, &persistDura, &dataNewest, closePersisting)
 	}
 
-	controlling(&dataNewest, closeGetting, closeDisplaying, closePersisting, metricsMeta, metricsDisplaying, urlGet)
+	controlling(&dataNewest, closeGetting, closeDisplaying, closePersisting)
 
 }

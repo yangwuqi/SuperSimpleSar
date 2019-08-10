@@ -12,6 +12,7 @@ import (
 )
 
 type dataPersist struct {
+	Index int
 	Time      string
 	DataSaved map[string]string
 }
@@ -25,8 +26,9 @@ func persisting(persistOK bool, persistDura *int, dataNewest *dataNew, closePers
 	for {
 		select {
 		case <-time.After(time.Duration((*persistDura)*1000) * time.Millisecond):
-			save("data", dataNewest)
-
+			if dataNewest!=nil {
+				save(dataNewest)
+			}
 		case <-closePersisting:
 			fmt.Println("the persisting process is shut down")
 			return
@@ -81,7 +83,7 @@ func seesee() {
 
 */
 
-func save(path string, dataNewest *dataNew) {
+func save11(path string, dataNewest *dataNew) {
 	dataNewest.mu.RLock()
 	defer dataNewest.mu.RUnlock()
 
@@ -115,7 +117,51 @@ func save(path string, dataNewest *dataNew) {
 	}
 }
 
-func load(path string) ([]dataPersist, error) {
+func save(dataNewest *dataNew) {
+	dataNewest.mu.RLock()
+	defer dataNewest.mu.RUnlock()
+
+	buffer := new(bytes.Buffer)
+	encoder := gob.NewEncoder(buffer)
+	err := encoder.Encode(dataNewest.data)
+	if err!=nil{
+		fmt.Println("error when encoding!")
+		panic(err)
+	}
+	err1:=updateDbBucketAsKeyIsTime(defaultBoltDB, defaultBucket, buffer.Bytes())
+	if err1!=nil{
+		panic(err1)
+	}
+}
+
+func loadAll()[]dataPersist{
+	var result []dataPersist
+	err,allDataFromBucket := getDbBucketAllData2(defaultBoltDB, defaultBucket)
+	if err!=nil{
+		panic(err)
+	}
+	for index,data:=range allDataFromBucket{
+		if len(data.Value)==0{
+			break
+		}
+		metrics:=make(map[string]string)
+		buffer := bytes.NewBuffer(data.Value)
+		dec := gob.NewDecoder(buffer)
+		err1 := dec.Decode(&metrics)
+		//fmt.Println()//
+		//fmt.Println(index," ",string(data.Key))//
+		//fmt.Println()//
+		//fmt.Println(metrics)//
+		if err1 != nil {
+			fmt.Printf("error when Decoding!\n")
+			panic(err1)
+		}
+		result=append(result, dataPersist{index, string(data.Key), metrics})
+	}
+	return result
+}
+
+func load11(path string) ([]dataPersist, error) {
 	var result []dataPersist
 	flag := 0
 	file, _ := os.Open(path)

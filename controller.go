@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func controlling(dataNewest *dataNew, closeGetting chan bool, closeDisplaying chan bool, closePersisting chan bool, metricsMeta string, metricsDisplaying []string, urlGet string) {
+func controlling(dataNewest *dataNew, closeGetting chan bool, closeDisplaying chan bool, closePersisting chan bool) {
 	for {
 		reader := bufio.NewReader(os.Stdin)
 		stdIn, _, _ := reader.ReadLine()
@@ -18,16 +18,16 @@ func controlling(dataNewest *dataNew, closeGetting chan bool, closeDisplaying ch
 			case "-q":
 				fmt.Println("shutdown all!")
 				return
-			case "-save":
-				save("data", dataNewest)
-			case "-sd":
+			//case "-save":
+				//save("data", dataNewest)
+			case "-s":
 				closeDisplaying <- true
 			case "-cp":
 				closePersisting <- true
-			case "-log":
-				createLogTxt("dataLog.txt")
-			case "-logC": //create logTxt for the chosen metrics
-				createLogTxtChosen("dataLogChosen.txt", metricsMeta, metricsDisplaying, urlGet)
+			//case "-log":
+			//	go createLogTxt("dataLog.txt")
+			case "-la":
+				go loadAll()
 			}
 			startIndex += length
 			if startIndex >= len(inputLine) {
