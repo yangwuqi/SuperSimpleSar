@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="194bf390-1ce9-4d56-b3e6-1688aee387fe" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/metricsAlertInfo.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conf.go" beforeDir="false" afterPath="$PROJECT_DIR$/conf.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configuration.toml" beforeDir="false" afterPath="$PROJECT_DIR$/configuration.toml" afterDir="false" />
-    </list>
+    <list default="true" id="194bf390-1ce9-4d56-b3e6-1688aee387fe" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,18 +40,13 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/metricsAlertInfo.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="45">
               <caret line="3" selection-start-line="3" selection-end-line="3" />
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/2019_8_11-22_58_16TO2019_8_11-23_18_02.txt">
-          <provider selected="true" editor-type-id="LargeFileEditor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -240,13 +230,13 @@
     <frame x="0" y="28" width="1104" height="808" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2964015" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2964015" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Messages" weight="0.3298351" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32233882" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.20989506" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.20989506" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -268,7 +258,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add the function of rangeQuery and rangeLog creating, due to the B+ tree, the range querying is very fast" />
     <MESSAGE value="fix the bug of not able to create logTxt file, the reason was due to there cannot be chars like ':' in the file's name, I wrote a function to transform those chars to '_'" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix the bug of not able to create logTxt file, the reason was due to there cannot be chars like ':' in the file's name, I wrote a function to transform those chars to '_'" />
+    <MESSAGE value="add the metricsAlert info, write the basic segment tree structure, prepare to supplement it and to significantly improve the performance of calculating the metricsAlert info" />
+    <option name="LAST_COMMIT_MESSAGE" value="add the metricsAlert info, write the basic segment tree structure, prepare to supplement it and to significantly improve the performance of calculating the metricsAlert info" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/dataLog" />
@@ -380,15 +371,15 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/2019_8_11-22_58_16TO2019_8_11-23_18_02.txt">
+      <provider selected="true" editor-type-id="LargeFileEditor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/metricsAlertInfo.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" selection-start-line="3" selection-end-line="3" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/2019_8_11-22_58_16TO2019_8_11-23_18_02.txt">
-      <provider selected="true" editor-type-id="LargeFileEditor" />
     </entry>
   </component>
 </project>
