@@ -7,7 +7,7 @@ import (
 	"sync"
 )
 
-var(
+var (
 	defaultBoltDB *bolt.DB
 	defaultBucket string
 )
@@ -37,13 +37,13 @@ func main() {
 	closeDisplaying := make(chan bool, 1)
 	closePersisting := make(chan bool, 1)
 
-	db,err:=openBoltDB("defaultBoltDB")
-	if err!=nil{
+	db, err := openBoltDB("defaultBoltDB")
+	if err != nil {
 		fmt.Println("cannot open the default BoltDB!")
 	}
 	defaultBoltDB = db
 	err1 := createDbBucket(defaultBoltDB, "defaultBucket")
-	if err1!=nil{
+	if err1 != nil {
 		fmt.Println("cannot open the default BoltDB Bucket!")
 	}
 	defaultBucket = "defaultBucket"

@@ -57,7 +57,19 @@ func createLogTxt(name, timeStamp1, timeStamp2 string) {
 func createTimestampName(timeStamp string) string {
 	var name string
 	word1, indexEnd := getWord(timeStamp)
+	word1 = makeTheCharTo_(word1)
 	word2, _ := getWord(timeStamp[indexEnd:])
+	word2 = makeTheCharTo_(word2)
 	name = word1 + "-" + word2
 	return name
+}
+
+func makeTheCharTo_(word string) string { //this function change the char not number to '_'
+	wordBytes := []byte(word) //or the log file's name will be invalid because of chars like ':'
+	for i := 0; i < len(word); i++ {
+		if int(wordBytes[i])-int('0') < 0 || int(wordBytes[i])-int('9') > 0 {
+			wordBytes[i] = '_'
+		}
+	}
+	return string(wordBytes)
 }
