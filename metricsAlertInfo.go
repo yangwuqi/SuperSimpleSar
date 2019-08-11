@@ -1,6 +1,7 @@
 package main
 
 //use a segment tree to significantly improve the performance of calculating metrics alert info
+//basic structure, to be continued
 
 type NumArray struct {
 	Vals       *[]int
