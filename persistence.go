@@ -5,14 +5,13 @@ import (
 	"bytes"
 	"encoding/gob"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 	"time"
 )
 
 type dataPersist struct {
-	Index int
+	Index     int
 	Time      string
 	DataSaved map[string]string
 }
@@ -26,7 +25,7 @@ func persisting(persistOK bool, persistDura *int, dataNewest *dataNew, closePers
 	for {
 		select {
 		case <-time.After(time.Duration((*persistDura)*1000) * time.Millisecond):
-			if dataNewest!=nil {
+			if dataNewest != nil {
 				save(dataNewest)
 			}
 		case <-closePersisting:
@@ -124,27 +123,27 @@ func save(dataNewest *dataNew) {
 	buffer := new(bytes.Buffer)
 	encoder := gob.NewEncoder(buffer)
 	err := encoder.Encode(dataNewest.data)
-	if err!=nil{
+	if err != nil {
 		fmt.Println("error when encoding!")
 		panic(err)
 	}
-	err1:=updateDbBucketAsKeyIsTime(defaultBoltDB, defaultBucket, buffer.Bytes())
-	if err1!=nil{
+	err1 := updateDbBucketAsKeyIsTime(defaultBoltDB, defaultBucket, buffer.Bytes())
+	if err1 != nil {
 		panic(err1)
 	}
 }
 
-func loadAll()[]dataPersist{
+func loadAll() []dataPersist {
 	var result []dataPersist
-	err,allDataFromBucket := getDbBucketAllData2(defaultBoltDB, defaultBucket)
-	if err!=nil{
+	err, allDataFromBucket := getDbBucketAllData2(defaultBoltDB, defaultBucket)
+	if err != nil {
 		panic(err)
 	}
-	for index,data:=range allDataFromBucket{
-		if len(data.Value)==0{
+	for index, data := range allDataFromBucket {
+		if len(data.Value) == 0 {
 			break
 		}
-		metrics:=make(map[string]string)
+		metrics := make(map[string]string)
 		buffer := bytes.NewBuffer(data.Value)
 		dec := gob.NewDecoder(buffer)
 		err1 := dec.Decode(&metrics)
@@ -158,53 +157,14 @@ func loadAll()[]dataPersist{
 			break
 			//panic(err1)
 		}
-		result=append(result, dataPersist{index, string(data.Key), metrics})
+		result = append(result, dataPersist{index, string(data.Key), metrics})
 	}
-	for _,v1:=range result{
-		fmt.Println("\n",v1.Index," ",v1.Time)
-		for k2,v2:=range v1.DataSaved {
-			fmt.Printf("key: %v, value: %v\n", k2,v2)
+	for _, v1 := range result {
+		fmt.Println("\n", v1.Index, " ", v1.Time)
+		for k2, v2 := range v1.DataSaved {
+			fmt.Printf("key: %v, value: %v\n", k2, v2)
 		}
 	}
 
 	return result
-}
-
-func load11(path string) ([]dataPersist, error) {
-	var result []dataPersist
-	flag := 0
-	file, _ := os.Open(path)
-	fileBytes, _ := ioutil.ReadAll(file)
-	if len(fileBytes) < 5 {
-		fmt.Println("wrong! no valid data")
-		return []dataPersist{}, nil
-	}
-	start := 0
-
-	for i := 0; i < len(fileBytes)-4; i++ {
-		if fileBytes[i] == '!' && fileBytes[i+1] == 'p' && fileBytes[i+2] == 'g' && fileBytes[i+3] == 'n' && fileBytes[i+4] == 'b' {
-			var resultLine dataPersist
-			var resultLineBytes []byte
-			resultLineBytes = fileBytes[start:i]
-			buffer := bytes.NewBuffer(resultLineBytes)
-			dec := gob.NewDecoder(buffer)
-			err1 := dec.Decode(&resultLine)
-			if err1 != nil {
-				fmt.Printf("error when Decoding!\n")
-				return result, err1
-			}
-			//fmt.Println("resultLine: ",resultLine)
-			result = append(result, resultLine)
-			flag++
-			start = i + 5
-			i = i + 4
-		}
-	}
-
-	err2 := file.Close()
-	if err2 != nil {
-		fmt.Printf("error when Close()!\n")
-		return result, err2
-	}
-	return result, nil
 }

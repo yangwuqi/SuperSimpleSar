@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"time"
 )
 
 func controlling(dataNewest *dataNew, closeGetting chan bool, closeDisplaying chan bool, closePersisting chan bool) {
@@ -15,20 +16,26 @@ func controlling(dataNewest *dataNew, closeGetting chan bool, closeDisplaying ch
 		word, length := getWord(inputLine[startIndex:])
 		for word != "" {
 			switch word {
-			case "-q":
-				_=defaultBoltDB.Close()
+			case "-q": //quit all
+				_ = defaultBoltDB.Close()
 				fmt.Println("shutdown all!")
 				return
 			//case "-save":
-				//save("data", dataNewest)
+			//save("data", dataNewest)
 			case "-s":
 				closeDisplaying <- true
 			case "-cp":
 				closePersisting <- true
-			//case "-log":
-			//	go createLogTxt("dataLog.txt")
+			case "-log":
+				go createLogTxtGetTimestamps()
+				time.Sleep(time.Second * 15)
 			case "-la":
 				go loadAll()
+			case "-tl": //show timestamps list, timestamp is the key in boltDB
+				go showTimestamps()
+			case "-rq": //range query, timestamp to timestamp
+				go rangeQueryPrint()
+				time.Sleep(time.Second * 15)
 			}
 			startIndex += length
 			if startIndex >= len(inputLine) {

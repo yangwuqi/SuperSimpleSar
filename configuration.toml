@@ -2,7 +2,7 @@
 #this is optional, to describe the meta metrics, like: you have go_goroutines and go_threads, you can set the MetricMeta as GoInformation
 MetricMeta="Go_Information"
 
-Url="http://localhost:9182/metrics"
+Url="http://localhost:9100/metrics"
 
 FreshDura=1
 
