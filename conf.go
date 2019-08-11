@@ -8,6 +8,7 @@ type Conf struct { //the comfiguration
 	Persist        bool
 	PersistDura    int
 	MetricsShowing []string
+	MetricsAlert   []int
 	DB             database
 }
 
