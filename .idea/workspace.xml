@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="194bf390-1ce9-4d56-b3e6-1688aee387fe" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/rangeQuery.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/showTimestamps.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configuration.toml" beforeDir="false" afterPath="$PROJECT_DIR$/configuration.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boltDBsupport.go" beforeDir="false" afterPath="$PROJECT_DIR$/boltDBsupport.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/createLogTxt.go" beforeDir="false" afterPath="$PROJECT_DIR$/createLogTxt.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/persistence.go" beforeDir="false" afterPath="$PROJECT_DIR$/persistence.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/start.go" beforeDir="false" afterPath="$PROJECT_DIR$/start.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,8 +26,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/persistence.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="16" column="1" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
+            <state relative-caret-position="-365">
+              <caret line="84" column="5" selection-start-line="84" selection-start-column="5" selection-end-line="84" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -39,8 +35,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controller.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="37" column="42" selection-start-line="37" selection-start-column="42" selection-end-line="37" selection-end-column="42" />
+            <state relative-caret-position="-140">
+              <caret line="9" column="38" selection-start-line="9" selection-start-column="38" selection-end-line="9" selection-end-column="38" />
               <folding>
                 <element signature="e#14#46#0" expanded="true" />
               </folding>
@@ -95,8 +91,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/createLogTxt.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-14">
-              <caret line="27" column="83" selection-start-line="27" selection-start-column="83" selection-end-line="27" selection-end-column="83" />
+            <state relative-caret-position="507">
+              <caret line="75" selection-start-line="75" selection-end-line="75" />
               <folding>
                 <element signature="e#14#37#0" expanded="true" />
               </folding>
@@ -141,15 +137,16 @@
         <option value="$PROJECT_DIR$/boltDBsupport.go" />
         <option value="$PROJECT_DIR$/rangeQueryAndShowTimestamps.go" />
         <option value="$PROJECT_DIR$/showTimestamps.go" />
-        <option value="$PROJECT_DIR$/persistence.go" />
         <option value="$PROJECT_DIR$/configuration.toml" />
         <option value="$PROJECT_DIR$/controller.go" />
         <option value="$PROJECT_DIR$/rangeQuery.go" />
+        <option value="$PROJECT_DIR$/persistence.go" />
         <option value="$PROJECT_DIR$/createLogTxt.go" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
+    <option name="x" value="1" />
     <option name="y" value="28" />
     <option name="width" value="1104" />
     <option name="height" value="808" />
@@ -241,14 +238,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="28" width="1104" height="808" extended-state="0" />
+    <frame x="1" y="28" width="1104" height="808" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2964015" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2964015" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" weight="0.3298351" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32233882" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3988006" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3988006" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -266,6 +265,10 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add the function of rangeQuery and rangeLog creating, due to the B+ tree, the range querying is very fast" />
+    <option name="LAST_COMMIT_MESSAGE" value="add the function of rangeQuery and rangeLog creating, due to the B+ tree, the range querying is very fast" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/dataLog" />
@@ -326,23 +329,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/persistence.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="16" column="1" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controller.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="37" column="42" selection-start-line="37" selection-start-column="42" selection-end-line="37" selection-end-column="42" />
-          <folding>
-            <element signature="e#14#46#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/rangeQuery.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-7">
@@ -363,10 +349,27 @@
     <entry file="file://$PROJECT_DIR$/dataBase.go">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/controller.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-140">
+          <caret line="9" column="38" selection-start-line="9" selection-start-column="38" selection-end-line="9" selection-end-column="38" />
+          <folding>
+            <element signature="e#14#46#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/persistence.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-365">
+          <caret line="84" column="5" selection-start-line="84" selection-start-column="5" selection-end-line="84" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/createLogTxt.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-14">
-          <caret line="27" column="83" selection-start-line="27" selection-start-column="83" selection-end-line="27" selection-end-column="83" />
+        <state relative-caret-position="507">
+          <caret line="75" selection-start-line="75" selection-end-line="75" />
           <folding>
             <element signature="e#14#37#0" expanded="true" />
           </folding>
