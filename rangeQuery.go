@@ -41,10 +41,11 @@ func rangeQueryPrint() {
 		dec := gob.NewDecoder(buffer)
 		err4 := dec.Decode(&metrics)
 		if err4 != nil {
-			panic(err4)
+			break
+			//panic(err4)
 		}
 		fmt.Println()
-		fmt.Println(timeAndData.Key)
+		fmt.Println(string(timeAndData.Key))
 		fmt.Println()
 		for k, v := range metrics {
 			fmt.Println("key: ", k, "value: ", v)
@@ -58,11 +59,29 @@ func rangeQuery(timeStamp1, timeStamp2 string) []TimeAndData {
 	err2, rangeData := getDbBucketRangeData(defaultBoltDB, defaultBucket, timeStamp1, timeStamp2)
 	timeEnd := time.Now().UnixNano()
 	timeUsed := timeEnd - timeStart
-	fmt.Println("used ", timeUsed, " nano time to query")
+	fmt.Println("used ", timeUsed, " nano time to query range data")
 	if err2 != nil {
 		panic(err2)
 	}
 
+	return decodingDataToTimeAndMap(rangeData)
+}
+
+func allQuery() []TimeAndData {
+
+	timeStart := time.Now().UnixNano()
+	err2, rangeData := getDbBucketAllData2(defaultBoltDB, defaultBucket)
+	timeEnd := time.Now().UnixNano()
+	timeUsed := timeEnd - timeStart
+	fmt.Println("used ", timeUsed, " nano time to query all data")
+	if err2 != nil {
+		panic(err2)
+	}
+
+	return decodingDataToTimeAndMap(rangeData)
+}
+
+func decodingDataToTimeAndMap(rangeData []BucketKeyValue) []TimeAndData {
 	var result []TimeAndData
 
 	for _, timeAndData := range rangeData {
@@ -71,11 +90,12 @@ func rangeQuery(timeStamp1, timeStamp2 string) []TimeAndData {
 		dec := gob.NewDecoder(buffer)
 		err3 := dec.Decode(&metrics)
 		if err3 != nil {
-			panic(err3)
+			break
+			//panic(err3)
 		}
 		var resultSingle TimeAndData
 		resultSingle.Data = make(map[string]string)
-		resultSingle.Timestamp = timeAndData.Key
+		resultSingle.Timestamp = string(timeAndData.Key)
 		resultSingle.Data = metrics
 		result = append(result, resultSingle)
 	}

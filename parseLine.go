@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 /*
 this file is used to parse the line and return two string.
@@ -23,6 +26,7 @@ func dataToMap(bodyData []byte, dataNewest *dataNew) {
 }
 
 func (d *Data) handleMap(dataNewest *dataNew) {
+	(*dataNewest).timeStamp = time.Now().Format("2006/1/2 15:04:05")
 
 	for d.lineEnd < len(d.data) && d.lineStart < len(d.data) {
 		writeLine1, writeLine2 := d.nextLine()

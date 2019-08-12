@@ -122,14 +122,14 @@ func save(dataNewest *dataNew) {
 
 	buffer := new(bytes.Buffer)
 	encoder := gob.NewEncoder(buffer)
-	err := encoder.Encode(dataNewest.data)
-	if err != nil {
-		fmt.Println("error when encoding!")
-		panic(err)
-	}
-	err1 := updateDbBucketAsKeyIsTime(defaultBoltDB, defaultBucket, buffer.Bytes())
+	err1 := encoder.Encode(dataNewest.data)
 	if err1 != nil {
+		fmt.Println("error when encoding!")
 		panic(err1)
+	}
+	err2 := addDbBucketAsKeyIsTime(defaultBoltDB, defaultBucket, (*dataNewest).timeStamp, buffer.Bytes())
+	if err2 != nil {
+		panic(err2)
 	}
 }
 

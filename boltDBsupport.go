@@ -4,11 +4,10 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/boltdb/bolt"
-	"time"
 )
 
 type BucketKeyValue struct {
-	Key   string
+	Key   []byte
 	Value []byte
 }
 
@@ -39,7 +38,7 @@ func createDbBucket(db *bolt.DB, bucketName string) error {
 	return nil
 }
 
-func updateDbBucketAsKeyIsTime(db *bolt.DB, bucketName string, data []byte) error {
+func addDbBucketAsKeyIsTime(db *bolt.DB, bucketName string, timeStamp string, data []byte) error {
 	err := db.Update(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte(bucketName))
 		if b == nil {
@@ -49,7 +48,7 @@ func updateDbBucketAsKeyIsTime(db *bolt.DB, bucketName string, data []byte) erro
 			}
 			b = tx.Bucket([]byte(bucketName))
 		}
-		err2 := b.Put([]byte(time.Now().Format("2006/1/2 15:04:05")), data)
+		err2 := b.Put([]byte(timeStamp), data)
 		if err2 != nil {
 			panic(err2)
 		}
@@ -83,7 +82,7 @@ func getDbBucketAllData(db *bolt.DB, bucketName string) (error, []BucketKeyValue
 	err := db.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte(bucketName))
 		err1 := b.ForEach(func(k, v []byte) error {
-			result = append(result, BucketKeyValue{string(k), v})
+			result = append(result, BucketKeyValue{k, v})
 			return nil
 		})
 		if err1 != nil {
@@ -103,7 +102,7 @@ func getDbBucketAllData2(db *bolt.DB, bucketName string) (error, []BucketKeyValu
 		b := tx.Bucket([]byte(bucketName))
 		c := b.Cursor()
 		for k, v := c.First(); k != nil && v != nil; k, v = c.Next() {
-			result = append(result, BucketKeyValue{string(k), v})
+			result = append(result, BucketKeyValue{k, v})
 		}
 		return nil
 	})
@@ -118,7 +117,7 @@ func getDbBucketRangeData(db *bolt.DB, bucketName, keyStart, keyEnd string) (err
 	err := db.View(func(tx *bolt.Tx) error {
 		c := tx.Bucket([]byte(bucketName)).Cursor()
 		for k, v := c.Seek([]byte(keyStart)); k != nil && bytes.Compare(k, []byte(keyEnd)) <= 0; k, v = c.Next() {
-			result = append(result, BucketKeyValue{string(k), v})
+			result = append(result, BucketKeyValue{k, v})
 		}
 		return nil
 	})

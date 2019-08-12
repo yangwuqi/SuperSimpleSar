@@ -8,19 +8,22 @@ import (
 )
 
 var (
-	defaultBoltDB *bolt.DB
-	defaultBucket string
+	defaultBoltDB   *bolt.DB
+	defaultBucket   string
+	alertInfoBucket string
 )
 
 type dataNew struct {
-	mu   sync.RWMutex
-	data map[string]string
+	mu        sync.RWMutex
+	timeStamp string
+	data      map[string]string
 }
 
 func main() {
 	var dataNewest dataNew
 	var urlGet string
 	var metricsDisplaying []string
+	var metricsAlertLine []string
 	var databaseInfo database
 	var getDura int
 	var displayingDura int
@@ -47,6 +50,11 @@ func main() {
 		fmt.Println("cannot open the default BoltDB Bucket!")
 	}
 	defaultBucket = "defaultBucket"
+	err2 := createDbBucket(defaultBoltDB, "alertInfoBucket")
+	if err2 != nil {
+		fmt.Println("cannot open the alertInfo BoltDB Bucket!")
+	}
+	alertInfoBucket = "alertInfoBucket"
 
 	if _, err := toml.DecodeFile("configuration.toml", &newConf); err != nil {
 		fmt.Println("configurations loading error! ")
@@ -58,9 +66,10 @@ func main() {
 		go httpGet(urlGet, &getDura, &dataNewest, closeGetting)
 
 		metricsDisplaying = newConf.MetricsShowing
+		metricsAlertLine = newConf.MetricsAlertLine
 		displayingDura = newConf.FreshDura
 		metricsMeta = newConf.MetricMeta
-		go print(metricsDisplaying, urlGet, &displayingDura, metricsMeta, closeDisplaying, &dataNewest)
+		go print(metricsDisplaying, urlGet, &displayingDura, metricsMeta, closeDisplaying, &dataNewest, metricsAlertLine)
 
 		databaseInfo = newConf.DB
 		go toDataBase(databaseInfo)

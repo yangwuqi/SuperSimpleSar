@@ -36,6 +36,8 @@ func controlling(dataNewest *dataNew, closeGetting chan bool, closeDisplaying ch
 			case "-rq": //range query, timestamp to timestamp
 				go rangeQueryPrint()
 				time.Sleep(time.Second * 15)
+			case "-as":
+				go alertInfoSumAllQuery()
 			}
 			startIndex += length
 			if startIndex >= len(inputLine) {

@@ -7,7 +7,7 @@ import (
 
 //
 
-func print(metricsDisplaying []string, url string, displayingDura *int, metricsMeta string, closeDisplaying chan bool, dataNewest *dataNew) {
+func print(metricsDisplaying []string, url string, displayingDura *int, metricsMeta string, closeDisplaying chan bool, dataNewest *dataNew, metricsAlertLine []string) {
 	if len(metricsDisplaying) == 0 {
 		fmt.Println("no metric chosen to displaying! ")
 		return
@@ -25,7 +25,7 @@ func print(metricsDisplaying []string, url string, displayingDura *int, metricsM
 	for {
 		select {
 		case <-time.After(time.Duration((*displayingDura)*1000) * time.Millisecond):
-			simplePrint(metricsDisplaying, dataNewest, url, metricLengths)
+			simplePrint(metricsDisplaying, dataNewest, url, metricLengths, metricsAlertLine)
 			fmt.Println()
 
 		case <-closeDisplaying:
@@ -47,15 +47,23 @@ func firstPrintSingle(metrics []string, metricMeta string, url string) {
 	fmt.Println()
 }
 
-func simplePrint(metricsDisplaying []string, dataNewest *dataNew, url string, metricLengths []int) {
+func simplePrint(metricsDisplaying []string, dataNewest *dataNew, url string, metricLengths []int, metricsAlertLine []string) {
 	dataNewest.mu.RLock()
 	defer dataNewest.mu.RUnlock()
 
-	fmt.Printf("TIME %v   ", time.Now().Format("2006/1/2 15:04:05"))
+	var alertInfoNodeData []int
+	timeStamp := (*dataNewest).timeStamp
+	fmt.Printf("TIME %v   ", timeStamp)
+
 	for i := 0; i < len(metricsDisplaying); i++ {
 		printblank(metricLengths[i] - len((*dataNewest).data[metricsDisplaying[i]]))
 		fmt.Printf("%v", (*dataNewest).data[metricsDisplaying[i]])
+		alertInfoNodeData = append(alertInfoNodeData, 0)
+		if metricsAlertLine[i] < (*dataNewest).data[metricsDisplaying[i]] {
+			alertInfoNodeData[i] = 1
+		}
 	}
+	alertInfoHandle(alertInfoNodeData, timeStamp)
 }
 
 func printblank(number int) {

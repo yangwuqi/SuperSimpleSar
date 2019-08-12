@@ -13,7 +13,7 @@ Persist=true
 PersistDura=1
 
 MetricsShowing=["go_memstats_alloc_bytes","go_memstats_frees_total","go_memstats_mspan_inuse_bytes","go_threads","go_goroutines","go_memstats_heap_idle_bytes"]
-MetricsAlert=[1,1,1,1,1,1]
+MetricsAlertLine=["1","1","1","1","1","1"]
 [DB]
 Url = "http://localhost:8086"
 Enabled = true
