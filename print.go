@@ -48,11 +48,15 @@ func firstPrintSingle(metrics []string, metricMeta string, url string) {
 }
 
 func simplePrint(metricsDisplaying []string, dataNewest *dataNew, url string, metricLengths []int, metricsAlertLine []string) {
+	if len(dataNewest.data) == 0 {
+		return
+	}
 	dataNewest.mu.RLock()
 	defer dataNewest.mu.RUnlock()
 
 	var alertInfoNodeData []int
-	timeStamp := (*dataNewest).timeStamp
+	//timeStamp := (*dataNewest).timeStamp
+	timeStamp := time.Now().Format("2006/1/2 15:04:05")
 	fmt.Printf("TIME %v   ", timeStamp)
 
 	for i := 0; i < len(metricsDisplaying); i++ {

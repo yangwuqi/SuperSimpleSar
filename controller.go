@@ -38,6 +38,8 @@ func controlling(dataNewest *dataNew, closeGetting chan bool, closeDisplaying ch
 				time.Sleep(time.Second * 15)
 			case "-as":
 				go alertInfoSumAllQuery()
+			case "-al":
+				go createLogTxtAll("all.data")
 			}
 			startIndex += length
 			if startIndex >= len(inputLine) {

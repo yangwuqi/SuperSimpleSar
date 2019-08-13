@@ -5,6 +5,7 @@ import (
 	"github.com/BurntSushi/toml"
 	"github.com/boltdb/bolt"
 	"sync"
+	"time"
 )
 
 var (
@@ -69,6 +70,15 @@ func main() {
 		metricsAlertLine = newConf.MetricsAlertLine
 		displayingDura = newConf.FreshDura
 		metricsMeta = newConf.MetricMeta
+		timeStart := time.Now().UnixNano()
+		for len(dataNewest.data) == 0 {
+			if time.Now().UnixNano()-timeStart > 10000000000 {
+				fmt.Println("time out, quit")
+				_ = defaultBoltDB.Close()
+				fmt.Println("shutdown all!")
+				return
+			}
+		}
 		go print(metricsDisplaying, urlGet, &displayingDura, metricsMeta, closeDisplaying, &dataNewest, metricsAlertLine)
 
 		databaseInfo = newConf.DB
