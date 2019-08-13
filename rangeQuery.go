@@ -26,15 +26,14 @@ func rangeQueryPrint() {
 
 	timeStart := time.Now().UnixNano()
 	err3, rangeData := getDbBucketRangeData(defaultBoltDB, defaultBucket, timeStamp1, timeStamp2)
-	timeEnd := time.Now().UnixNano()
-	timeUsed := timeEnd - timeStart
-	fmt.Println("used ", timeUsed, " nano time to query")
+
 	if err3 != nil {
 		panic(err3)
 	}
 
-	//fmt.Println(len(rangeData))
-
+	timeEnd := time.Now().UnixNano()
+	timeUsed := timeEnd - timeStart
+	fmt.Println("used ", timeUsed, " nano time to query")
 	for _, timeAndData := range rangeData {
 		metrics := make(map[string]string)
 		buffer := bytes.NewBuffer(timeAndData.Value)
