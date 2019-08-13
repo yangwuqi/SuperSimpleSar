@@ -3,13 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="194bf390-1ce9-4d56-b3e6-1688aee387fe" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alertInfoHandle.go" beforeDir="false" afterPath="$PROJECT_DIR$/alertInfoHandle.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configuration.toml" beforeDir="false" afterPath="$PROJECT_DIR$/configuration.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/createLogTxt.go" beforeDir="false" afterPath="$PROJECT_DIR$/createLogTxt.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/persistence.go" beforeDir="false" afterPath="$PROJECT_DIR$/persistence.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/print.go" beforeDir="false" afterPath="$PROJECT_DIR$/print.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/start.go" beforeDir="false" afterPath="$PROJECT_DIR$/start.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf.go" beforeDir="false" afterPath="$PROJECT_DIR$/conf.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataBase.go" beforeDir="false" afterPath="$PROJECT_DIR$/dataBase.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/getData.go" beforeDir="false" afterPath="$PROJECT_DIR$/getData.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parseLine.go" beforeDir="false" afterPath="$PROJECT_DIR$/parseLine.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rangeQuery.go" beforeDir="false" afterPath="$PROJECT_DIR$/rangeQuery.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/segmentTreeHandle.go" beforeDir="false" afterPath="$PROJECT_DIR$/segmentTreeHandle.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/showTimestamps.go" beforeDir="false" afterPath="$PROJECT_DIR$/showTimestamps.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,10 +28,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controller.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
+            <state relative-caret-position="519">
               <caret line="41" column="44" selection-start-line="41" selection-start-column="44" selection-end-line="41" selection-end-column="44" />
             </state>
           </provider>
@@ -67,11 +67,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/rangeQuery.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-435">
-              <caret line="45" column="9" selection-start-line="45" selection-start-column="9" selection-end-line="45" selection-end-column="9" />
+            <state relative-caret-position="638">
+              <caret line="54" column="25" selection-start-line="54" selection-start-column="25" selection-end-line="54" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -139,7 +139,6 @@
         <option value="$PROJECT_DIR$/metricsAlertInfo.go" />
         <option value="$PROJECT_DIR$/conf.go" />
         <option value="$PROJECT_DIR$/parseLine.go" />
-        <option value="$PROJECT_DIR$/rangeQuery.go" />
         <option value="$PROJECT_DIR$/segmentTreeHandle.go" />
         <option value="$PROJECT_DIR$/boltDBsupport.go" />
         <option value="$PROJECT_DIR$/configuration.toml" />
@@ -147,14 +146,15 @@
         <option value="$PROJECT_DIR$/alertInfoHandle.go" />
         <option value="$PROJECT_DIR$/start.go" />
         <option value="$PROJECT_DIR$/createLogTxt.go" />
-        <option value="$PROJECT_DIR$/controller.go" />
         <option value="$PROJECT_DIR$/print.go" />
+        <option value="$PROJECT_DIR$/controller.go" />
+        <option value="$PROJECT_DIR$/rangeQuery.go" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1552" />
-    <option name="y" value="152" />
+    <option name="x" value="1497" />
+    <option name="y" value="175" />
     <option name="width" value="1796" />
     <option name="height" value="1189" />
   </component>
@@ -245,14 +245,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1552" y="152" width="1796" height="1189" extended-state="0" />
+    <frame x="1497" y="175" width="1796" height="1189" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18317972" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.321327" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.44739336" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.29952607" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -260,9 +261,9 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.43328336" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.50521326" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.50521326" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="12" weight="0.3298351" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.32890996" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -276,7 +277,8 @@
     <MESSAGE value="add the function of rangeQuery and rangeLog creating, due to the B+ tree, the range querying is very fast" />
     <MESSAGE value="fix the bug of not able to create logTxt file, the reason was due to there cannot be chars like ':' in the file's name, I wrote a function to transform those chars to '_'" />
     <MESSAGE value="add the metricsAlert info, write the basic segment tree structure, prepare to supplement it and to significantly improve the performance of calculating the metricsAlert info" />
-    <option name="LAST_COMMIT_MESSAGE" value="add the metricsAlert info, write the basic segment tree structure, prepare to supplement it and to significantly improve the performance of calculating the metricsAlert info" />
+    <MESSAGE value="fix the bug of time-out, add the allTxtLog function" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix the bug of time-out, add the allTxtLog function" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/dataLog" />
@@ -338,13 +340,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rangeQuery.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-435">
-          <caret line="45" column="9" selection-start-line="45" selection-start-column="9" selection-end-line="45" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/alertInfoHandle.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -392,8 +387,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/controller.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
+        <state relative-caret-position="519">
           <caret line="41" column="44" selection-start-line="41" selection-start-column="44" selection-end-line="41" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rangeQuery.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="638">
+          <caret line="54" column="25" selection-start-line="54" selection-start-column="25" selection-end-line="54" selection-end-column="25" />
         </state>
       </provider>
     </entry>
